@@ -58,3 +58,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+
+@mixin fade-in-with-translante($duration) {
+  transition-property: opacity, transform;
+  transition-duration: $duration, $duration;
+  transition-timing-function: ease-in, ease-out;
+}
