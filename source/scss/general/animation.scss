@@ -24,6 +24,10 @@
   @include fade-in-with-translante(0.3s);
 }
 
+.social-block__toggler::before {
+  transition: all 0.3s ease;
+}
+
 .social-block {
   &:hover {
     $social-links-count: 3;
