@@ -995,6 +995,9 @@ img {
   transition-duration: 0.3s, 0.3s;
   transition-timing-function: ease-in, ease-out; }
 
+.social-block__toggler::before {
+  transition: all 0.3s ease; }
+
 .social-block:hover li:nth-of-type(1) a {
   transition-delay: 50ms; }
 
