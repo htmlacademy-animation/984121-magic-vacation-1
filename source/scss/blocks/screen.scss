@@ -47,6 +47,8 @@
   background-color: $c-light;
   z-index: 1;
 
+  transform: translateY(100%);
+
   @media (max-width: $tablet) and (orientation: portrait) {
     width: 3.5rem;
     height: 3.5rem;
