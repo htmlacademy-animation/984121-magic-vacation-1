@@ -19,3 +19,9 @@ $retina-dpi: 144dpi;
 $retina-dppx: 1.5dppx;
 
 $index: 1.38871;
+
+$screen-transition-duration: 500;
+
+:export {
+  SCREEN_TRANSITION_DURATION: $screen-transition-duration;
+}

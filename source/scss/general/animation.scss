@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .page-header__menu {
   a {
     &::after {
@@ -132,4 +134,21 @@
   to {
     transform: scale(1.1) translate(-50%, -50%);
   }
+}
+
+.background {
+  position: fixed;
+  background: $c-dark;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 0;
+  transform: translateY(100%);
+
+  transition: all #{$screen-transition-duration}ms ease-out;
+}
+
+.background--active {
+  z-index: 1;
+  transform: translateY(0);
 }
