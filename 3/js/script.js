@@ -10306,9 +10306,19 @@ class FullPageScroll {
     this.screenElements = document.querySelectorAll(`.screen:not(.screen--result)`);
     this.menuElements = document.querySelectorAll(`.page-header__menu .js-menu-link`);
 
-    this.activeScreen = 0;
+    this._activeScreen = 0;
+    this.previousScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+  }
+
+  get activeScreen() {
+    return this._activeScreen;
+  }
+
+  set activeScreen(position) {
+    this.previousScreen = this.activeScreen;
+    this._activeScreen = position;
   }
 
   init() {
@@ -10339,7 +10349,10 @@ class FullPageScroll {
   }
 
   async playScreenChangeAnimation() {
-    if (this.screenElements[this.activeScreen].id === `prizes`) {
+    const isAnimatedScreenChange = this.screenElements[this.activeScreen].id === `prizes`
+      && this.screenElements[this.previousScreen].id === `story`;
+
+    if (isAnimatedScreenChange) {
       document.querySelector(`.background`).classList.add(`background--active`);
 
       return new Promise((resolve) => {
