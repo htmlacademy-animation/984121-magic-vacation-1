@@ -10317,6 +10317,10 @@ class FullPageScroll {
   }
 
   set activeScreen(position) {
+    if (position === this.activeScreen) {
+      return;
+    }
+
     this.previousScreen = this.activeScreen;
     this._activeScreen = position;
   }
