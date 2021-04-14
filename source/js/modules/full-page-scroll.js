@@ -1,15 +1,31 @@
 import throttle from 'lodash/throttle';
+import cssVariables from '../../scss/general/variables.scss';
 
 export default class FullPageScroll {
   constructor() {
     this.THROTTLE_TIMEOUT = 2000;
+    this.SCREEN_TRANSITION_DURATION = cssVariables.SCREEN_TRANSITION_DURATION;
 
     this.screenElements = document.querySelectorAll(`.screen:not(.screen--result)`);
     this.menuElements = document.querySelectorAll(`.page-header__menu .js-menu-link`);
 
-    this.activeScreen = 0;
+    this._activeScreen = 0;
+    this.previousScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+  }
+
+  get activeScreen() {
+    return this._activeScreen;
+  }
+
+  set activeScreen(position) {
+    if (position === this.activeScreen) {
+      return;
+    }
+
+    this.previousScreen = this.activeScreen;
+    this._activeScreen = position;
   }
 
   init() {
@@ -39,7 +55,26 @@ export default class FullPageScroll {
     this.emitChangeDisplayEvent();
   }
 
-  changeVisibilityDisplay() {
+  async playScreenChangeAnimation() {
+    const isAnimatedScreenChange = this.screenElements[this.activeScreen].id === `prizes`
+      && this.screenElements[this.previousScreen].id === `story`;
+
+    if (isAnimatedScreenChange) {
+      document.querySelector(`.background`).classList.add(`background--active`);
+
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          document.querySelector(`.background`).classList.remove(`background--active`);
+          resolve();
+        }, this.SCREEN_TRANSITION_DURATION);
+      });
+    }
+
+    return null;
+  }
+
+  async changeVisibilityDisplay() {
+    await this.playScreenChangeAnimation();
     this.screenElements.forEach((screen) => {
       screen.classList.add(`screen--hidden`);
       screen.classList.remove(`active`);
