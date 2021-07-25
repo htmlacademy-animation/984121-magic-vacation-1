@@ -203,3 +203,37 @@ $rules-animation-delay-delta: 200ms;
     transform: translateY(0);
   }
 }
+
+/*
+  Появление кнопки «Погнали!»
+*/
+
+.rules__link.btn {
+  opacity: 0;
+  color: transparent;
+  transition-property: color, opacity;
+  transition-duration: 200ms, 10ms;
+  transition-delay: 1200ms, 1000ms;
+  transition-timing-function: linear, ease-in;
+
+  &::before {
+    transition-delay: 1000ms;
+    transform: translate(-50%, -50%) scaleX(0.35);
+    transform-origin: right;
+    animation-timing-function: ease-in, linear;
+    border-radius: 50%;
+
+    transition-property: transform, border-radius;
+    transition-duration: 200ms;
+  }
+}
+
+.active .rules__link.btn {
+  color: $c-dark;
+  opacity: 1;
+
+  &::before {
+    border-radius: 3.5rem;
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+}
